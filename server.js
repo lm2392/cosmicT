@@ -13,9 +13,9 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
+
 // app.use(express.static(path.resolve(__dirname, "./client", "public")));
 
-app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 
@@ -24,6 +24,8 @@ const port = process.env.PORT || 1000;
 
 // const webServer = http.createServer(app);
 const webServer = http.createServer(app);
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 const io = require("socket.io")(webServer);
 
 const rooms = {};
@@ -80,9 +82,6 @@ io.on("connection", socket => {
   });
 });
 
-webServer.listen(port, () => {
-  console.log("listening on http://localhost:" + port);
-});
 
 
 
@@ -117,21 +116,18 @@ app2.use(bodyParser.urlencoded({ extended: true }));
 
 if(process.env.NODE_ENV === 'production') {
 
-  webServer.get('/', (req, res) => {res.sendfile(path.join(__dirname = 'client/build/index.html'));})
+  app.get('/', (req, res) => {res.sendfile(path.join(__dirname = 'client/build/index.html'));})
 
 }
 
-webServer.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
+app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
 // app.listen(port, error => {
 //   if (error) throw error;
 //   console.log('Server running on port ' + port);
 // });
 
-app2.listen(port2, error => {
-  if (error) throw error;
-  console.log('Server running on port ' + port2);
-});
+
 
 app.post('/payment', (req, res) => {
   const body = {
@@ -147,4 +143,15 @@ app.post('/payment', (req, res) => {
       res.status(200).send({ success: stripeRes });
     }
   });
+});
+
+
+app2.listen(port2, error => {
+  if (error) throw error;
+  console.log('Server running on port ' + port2);
+});
+
+
+webServer.listen(port, () => {
+  console.log("listening on http://localhost:" + port);
 });

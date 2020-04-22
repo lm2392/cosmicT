@@ -6,7 +6,7 @@
     "npm": "6.13.4"
   },
   "scripts": {
-    "client": "cd client && npm start",
+    "client": "cd client && yarn start",
     "server": "node server.js",
     "json:server": "json-server --watch data.json",
     "build": "npm run app",

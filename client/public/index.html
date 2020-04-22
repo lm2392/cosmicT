@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    
+
+  <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300"
+      rel="stylesheet"
+    />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>CRWN Clothing</title>
+    <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.slim.js"></script>
+    <script src="https://unpkg.com/networked-aframe@^0.7.0/dist/networked-aframe.min.js"></script>
+    <script src="easyrtc/easyrtc.js"></script>
+    <script src="./js/text_geo.js"></script>
+    <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script>
+    <script src="https://unpkg.com/aframe-particle-system-component@1.0.5/dist/aframe-particle-system-component.min.js"></script>
+    <script src="/js/spawn-in-circle.component.js"></script>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    
+    
+
+     <div id="root"></div>
+
+     <a-scene id="scene" networked-scene="serverURL: /; room: index; connectOnLoad: true; onConnect: onConnect; adapter: webrtc; audio: true; debug: false;" >
+              <a-entity></a-entity>
+              <a-entity id="root2"></a-entity>
+                <a-assets>
+                  <a-mixin id="boldFont" text="font: #optimerBoldFont"></a-mixin>
+                  <img id="grid" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png" crossorigin="anonymous">
+                  <img id="sky" src="https://img.gs/bbdkhfbzkk/2048x2048,stretch/http://i.imgur.com/WqlqEkq.jpg" crossorigin="anonymous" />
+
+              
+                  <template id="avatar-template">
+                    <a-entity class="avatar" networked-audio-source="">
+                      <a-sphere class="head" color="#5985ff" scale="0.45 0.5 0.4" random-color=""></a-sphere>
+                      <a-entity class="face" position="0 0.05 0">
+                        <a-sphere class="eye" color="#efefef" position="0.16 0.1 -0.35" scale="0.12 0.12 0.12">
+                          <a-sphere class="pupil" color="#000" position="0 0 -1" scale="0.2 0.2 0.2"></a-sphere>
+                        </a-sphere>
+                        <a-sphere class="eye" color="#efefef" position="-0.16 0.1 -0.35" scale="0.12 0.12 0.12">
+                          <a-sphere class="pupil" color="#000" position="0 0 -1" scale="0.2 0.2 0.2"></a-sphere>
+                        </a-sphere>
+                      </a-entity>
+                    </a-entity>
+                  </template>
+
+                </a-assets>
+                <a-entity id="player"
+                          camera
+                          networked="template:#avatar-template;attachTemplateToLocal:false;"
+                          position="0 1.6 0"
+                          spawn-in-circle="radius:3"
+                          wasd-controls
+                          look-controls>
+                  <a-sphere class="head"
+                    visible="false"
+                    random-color
+                  ></a-sphere>
+                </a-entity>
+
+                <a-box id="box1" position="0 0 0" rotation="45 45 45" color="#aa55ff"></a-box>
+
+                <a-entity position="0 0 0"
+                  geometry="primitive: plane; width: 10000; height: 10000;" rotation="-90 0 0"
+                  material="src: #grid; repeat: 10000 10000; transparent: true; metalness:0.6; roughness: 0.4; sphericalEnvMap: #sky;"></a-entity>
+
+                <a-entity light="color: #ccccff; intensity: 1; type: ambient;" visible=""></a-entity>
+                <a-entity light="color: #ffaaff; intensity: 1.5" position="5 5 5"></a-entity>
+
+                <a-sky src="#sky" rotation="0 -90 0"></a-sky>
+                <a-entity id="particles" particle-system="preset: snow"></a-entity>
+    </a-scene>>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+      // On mobile remove elements that are resource heavy
+      var isMobile = AFRAME.utils.device.isMobile();
+
+      if (isMobile) {
+        var particles = document.getElementById('particles');
+        particles.parentNode.removeChild(particles);
+      }
+      
+      // Define custom schema for syncing avatar color, set by random-color
+      NAF.schemas.add({
+        template: '#avatar-template',
+        components: [
+          'position',
+          'rotation',
+          {
+            selector: '.head',
+            component: 'material',
+            property: 'color'
+          }
+        ]
+      });
+    </script>
+ 
+  </body>
+</html>

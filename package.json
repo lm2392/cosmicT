@@ -26,7 +26,8 @@
     "http-proxy-middleware": "^1.0.3",
     "json-server": "^0.16.1",
     "socket.io": "^2.3.0",
-    "stripe": "6.28.0"
+    "stripe": "6.28.0",
+    "concurrently": "^4.0.1"
   },
   "devDependencies": {
     "concurrently": "^4.0.1",

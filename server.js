@@ -15,6 +15,20 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 const app = express();
 // app.use(express.static(path.resolve(__dirname, "./client", "public")));
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+
+
+
+if(process.env.NODE_ENV === 'production') {
+
+   app.use(express.static(path.join(__dirname, 'client/build')));  
+
+   app.get('*', (req, res) => {res.sendfile(path.join(__dirname = 'client/build/index.html'));})
+
+}
+
+app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
+
 const port = process.env.PORT || 1000;
 
 // const webServer = http.createServer(app);

@@ -11,7 +11,7 @@
     "json:server": "json-server --watch data.json",
     "app": "concurrently --kill-others-on-fail \"yarn json:server\" \"yarn server\" \"yarn client\"",
     "start": "npm run app",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run app"
+    "heroku-postbuild": "cd client && npm install && npm install --only=app --no-shrinkwrap && npm run app"
   },
   "dependencies": {
     "axios": "^0.19.2",

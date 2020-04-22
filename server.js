@@ -19,13 +19,6 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 
 
-if(process.env.NODE_ENV === 'production') {
-
-   app.get('*', (req, res) => {res.sendfile(path.join(__dirname = 'client/build/index.html'));})
-
-}
-
-app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
 const port = process.env.PORT || 1000;
 
@@ -91,6 +84,8 @@ webServer.listen(port, () => {
   console.log("listening on http://localhost:" + port);
 });
 
+
+
 const app2 = express();
 const port2 = process.env.PORT || 2000;
 
@@ -120,13 +115,13 @@ app2.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({ extended: true }));
 
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+if(process.env.NODE_ENV === 'production') {
 
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
+  app.get('/', (req, res) => {res.sendfile(path.join(__dirname = 'client/build/index.html'));})
+
 }
+
+app.get('/', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
 // app.listen(port, error => {
 //   if (error) throw error;

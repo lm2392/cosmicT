@@ -9,7 +9,7 @@
     "client": "cd client && yarn start",
     "server": "nodemon server.js",
     "json:server": "json-server --watch data.json",
-    "build": "cd client && npm run dev",
+    "build": "cd client && npm run build",
     "dev": "concurrently --kill-others-on-fail \"yarn json:server\" \"yarn server\" \"yarn client\"",
     "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"

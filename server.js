@@ -13,6 +13,8 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
+app.use(express.static(path.resolve(__dirname, "./client", "build")));
+
 const port = process.env.PORT || 1000;
 
 // const webServer = http.createServer(app);

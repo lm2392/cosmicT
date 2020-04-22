@@ -7,7 +7,7 @@
   },
   "scripts": {
     "client-install": "npm install --prefix client",
-    "client": "npm start --prefix client",
+    "client": "cd client && npm start",
     "server": "nodemon server.js",
     "json:server": "json-server --watch data.json",
     "dev": "concurrently --kill-others-on-fail \"npm run json:server\" \"npm run server\" \"npm run client\"",

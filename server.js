@@ -94,7 +94,7 @@ app2.use(cors());
 app.use(
   '/graphql',
   createProxyMiddleware({
-    target: 'http://localhost:'+`${port2}`+'/',
+    target: 'https://cosmictour.herokuapp.com/'+`${port2}`+'/',
     changeOrigin: true
   })
 )

@@ -6,12 +6,13 @@
     "npm": "6.13.4"
   },
   "scripts": {
-    "client": "cd client && yarn start",
-    "server": "node server.js",
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
     "json:server": "json-server --watch data.json",
-    "dev": "concurrently --kill-others-on-fail \"yarn json:server\"  \"yarn client\"",
-    "start": "concurrently --kill-others-on-fail \"yarn json:server\" \"yarn server\" \"yarn client\"",
-    "heroku-postbuild": "cd client && npm install && npm install"
+    "build": "cd client && npm run build",
+    "dev": "concurrently --kill-others-on-fail \"npm run json:server\" \"npm run server\" \"npm run client\"",
+    "start": "concurrently --kill-others-on-fail \"npm run json:server\" \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "axios": "^0.19.2",

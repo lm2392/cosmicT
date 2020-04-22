@@ -11,7 +11,7 @@
     "json:server": "json-server --watch data.json",
     "build": "npm run app",
     "dev": "concurrently --kill-others-on-fail \"npm run json:server\" \"npm run server\" \"npm run client\"",
-    "start": "node server.js",
+    "start": "npm run dev",
     "heroku-postbuild": "cd client && npm install"
   },
   "dependencies": {

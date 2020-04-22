@@ -10,7 +10,7 @@
     "client": "npm start --prefix client",
     "server": "nodemon server.js",
     "json:server": "json-server --watch data.json",
-    "dev": "concurrently --kill-others-on-fail \"yarn json:server\" \"yarn server\" \"yarn client\"",
+    "dev": "concurrently --kill-others-on-fail \"npm run json:server\" \"npm run server\" \"npm run client\"",
     "start": "npm run dev"
   },
   "dependencies": {

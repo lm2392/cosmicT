@@ -7,10 +7,10 @@
   },
   "scripts": {
     "client-install": "npm install --prefix client",
-    "client": "cd client && yarn start",
+    "client": "cd client && npm run start",
     "server": "nodemon server.js",
     "json:server": "json-server --watch data.json",
-    "dev": "concurrently --kill-others-on-fail \"yarn json:server\" \"yarn server\" \"yarn client\"",
+    "dev": "concurrently --kill-others-on-fail  \"yarn client\" \"yarn json:server\" \"yarn server\"",
     "start": "npm run dev"
   },
   "dependencies": {

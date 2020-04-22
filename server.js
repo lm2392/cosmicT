@@ -13,19 +13,19 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
+const port = process.env.PORT || 1000;
 
 // app.use(express.static(path.resolve(__dirname, "./client", "public")));
 
+app.use(express.static(path.resolve(__dirname, 'client/public')));
 
+  app.get('*', function(req, res) {
+    res.sendFile(path.resolve(__dirname, 'client/public', 'index.html'));
+  });
 
-
-
-const port = process.env.PORT || 1000;
 
 // const webServer = http.createServer(app);
 const webServer = http.createServer(app);
-app.use(express.static(path.join(__dirname, 'client/build')));
-
 const io = require("socket.io")(webServer);
 
 const rooms = {};
@@ -94,10 +94,11 @@ app2.use(cors());
 app.use(
   '/graphql',
   createProxyMiddleware({
-    target: 'http://localhost:2000/',
+    target: 'http://localhost:'+`${port2}`+'/',
     changeOrigin: true
   })
 )
+
 
 app2.use(
   "/graphql",
@@ -114,13 +115,6 @@ app2.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({ extended: true }));
 
 
-if(process.env.NODE_ENV === 'production') {
-
-  app.get('/', (req, res) => {res.sendfile(path.join(__dirname = 'client/build/index.html'));})
-
-}
-
-app.get('*', (req, res) => {  res.sendFile(path.join(__dirname+'/client/public/index.html'));})
 
 // app.listen(port, error => {
 //   if (error) throw error;
@@ -155,3 +149,5 @@ app2.listen(port2, error => {
 webServer.listen(port, () => {
   console.log("listening on http://localhost:" + port);
 });
+
+

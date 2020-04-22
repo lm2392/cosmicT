@@ -13,7 +13,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 const app = express();
-app.use(express.static(path.resolve(__dirname, "./client", "public")));
+// app.use(express.static(path.resolve(__dirname, "./client", "public")));
 
 const port = process.env.PORT || 1000;
 

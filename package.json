@@ -10,7 +10,7 @@
     "server": "node server.js",
     "json:server": "json-server --watch data.json",
     "build": "npm run app",
-    "app": "concurrently --kill-others-on-fail \"yarn json:server\" \"yarn server\" \"yarn client\"",
+    "app": "concurrently --kill-others-on-fail \"npm run json:server\" \"npm run server\" \"npm run client\"",
     "start": "npm run app"
   },
   "dependencies": {

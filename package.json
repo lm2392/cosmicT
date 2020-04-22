@@ -9,7 +9,6 @@
     "client": "cd client && yarn start",
     "server": "node server.js",
     "json:server": "json-server --watch data.json",
-    "build": "cd client && npm run build",
     "dev": "concurrently --kill-others-on-fail \"yarn json:server\"  \"yarn client\"",
     "start": "concurrently --kill-others-on-fail \"yarn json:server\" \"yarn server\" \"yarn client\""
   },
